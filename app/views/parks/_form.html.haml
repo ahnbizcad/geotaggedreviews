@@ -1,0 +1,13 @@
+= simple_form_for(@park, html: { multipart: true }) do |f|
+  - if @park.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@park.errors.count, "error")} prohibited this park from being saved:"
+      %ul
+        - @park.errors.full_messages.each do |msg|
+          %li= msg
+
+  = f.input :address
+  = f.input :image
+
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,8 @@
+%p#notice= notice
+
+= @park.address
+= image_tag @park.image_url
+
+= link_to 'Edit', edit_park_path(@park)
+\|
+= link_to 'Back', parks_path
