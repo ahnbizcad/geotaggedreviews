@@ -1,7 +1,14 @@
 %p#notice= notice
 
 = @park.address
+
 = image_tag @park.image_url
+
+= link_to "Add a review", new_review_path
+
+= @park.reviews.each do |review|
+  = review.rating
+  = review.comment
 
 = link_to 'Edit', edit_park_path(@park)
 \|
