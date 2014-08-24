@@ -1,4 +1,4 @@
-= simple_form_for @review do |f|
+= simple_form_for [@park, @review] do |f|
   - if @review.errors.any?
     #error_explanation
       %h2= "#{pluralize(@review.errors.count, "error")} prohibited this review from being saved:"
@@ -8,5 +8,4 @@
 
   = f.input :rating
   = f.input :comment
-  .actions
-    = f.submit 'Save'
+  = f.submit

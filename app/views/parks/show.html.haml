@@ -1,13 +1,11 @@
-%p#notice= notice
-
 = @park.address
 
 = image_tag @park.image_url
 
-= link_to "Add a review", new_review_path
+= link_to "Add a review", new_park_review_path(@park)
 
-= @park.reviews.each do |review|
-  = review.rating
+= @reviews.each do |review|
+  .star-rating{ :data => { score: review.rating } }
   = review.comment
 
 = link_to 'Edit', edit_park_path(@park)

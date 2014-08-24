@@ -14,10 +14,10 @@ gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
+gem 'jbuilder', '~> 2.0'
+
 #gem 'autoprefixer-rails'
 gem 'uglifier', '>= 1.3.0'
-
-gem 'jbuilder', '~> 2.0'
 gem 'jquery-turbolinks', '~>2.0.2'
 gem 'turbolinks'
 gem 'sprockets', '~>2.11.0'
@@ -35,20 +35,26 @@ gem 'figaro', '~> 0.7.0'
 
 gem 'devise'
 
+gem 'simple_form'
+
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
 
-gem 'simple_form'
+
 
 group :development do 
   gem 'better_errors'
   gem 'binding_of_caller'
+  
   gem 'pry-rails'
   gem 'pry-byebug'
+
   gem 'awesome_print'
   gem 'quiet_assets'
+  
   gem 'annotate'
+  
   gem 'ruby_parser'
 end
 

@@ -10,6 +10,7 @@ class ParksController < ApplicationController
   # GET /parks/1
   # GET /parks/1.json
   def show
+    @reviews = Review.where(park_id: @park.id)
   end
 
   # GET /parks/new
@@ -59,15 +60,13 @@ class ParksController < ApplicationController
       format.html { redirect_to parks_url, notice: 'Park was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
+  end  
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_park
       @park = Park.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def park_params
       params.require(:park).permit(:address, :image)
     end

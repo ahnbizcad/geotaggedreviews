@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
-  
   root "parks#index"
+
+  resources :parks do
+    resources :reviews, except: [:show, :index]
+  end
+
+  devise_for :users, :skip => [:sessions, :registration]
+  devise_for :user, :path => '', :path_names => { :sign_in => "login", 
+                                                  :sign_out => "logout", 
+                                                  :sign_up => "register", 
+                                                  :account_update => "account-settings" }
 
   get 'pages/about'
   get 'pages/contact'
-  
-  resources :parks
-  resources :reviews, except: [:show, :index]
-
-  devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
