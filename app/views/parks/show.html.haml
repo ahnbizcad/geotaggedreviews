@@ -2,12 +2,32 @@
 
 = image_tag @park.image_url
 
-= link_to "Add a review", new_park_review_path(@park)
+.star-rating{ :data => { score: @avg_rating } }
+  = @reviews.length
+Breakdown
+.star-rating{ :data => { score: 5 } }
+.count
+  = @rating_5_star
+.star-rating{ :data => { score: 4 } }
+.count
+  = @rating_4_star
+.star-rating{ :data => { score: 3 } }
+.count
+  = @rating_3_star
+.star-rating{ :data => { score: 2 } }
+.count
+  = @rating_2_star
+.star-rating{ :data => { score: 1 } }
+.count
+  = @rating_1_star
 
-= @reviews.each do |review|
-  .star-rating{ :data => { score: review.rating } }
-  = review.comment
+= link_to "Add a review", new_park_review_path(@park)
 
 = link_to 'Edit', edit_park_path(@park)
 \|
 = link_to 'Back', parks_path
+
+= @reviews.each do |review|
+  .div{ id: "review-#{review.id}"}
+    .star-rating{ :data => { score: review.rating } }
+    .comment= review.comment

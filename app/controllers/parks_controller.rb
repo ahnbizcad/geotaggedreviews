@@ -10,7 +10,19 @@ class ParksController < ApplicationController
   # GET /parks/1
   # GET /parks/1.json
   def show
-    @reviews = Review.where(park_id: @park.id)
+    @reviews = Review.where(park_id: @park.id).order("created_at DESC")
+    if @reviews.blank?
+      @avg_rating = 0
+    else
+      @avg_rating = @reviews.average(:rating).round(2)
+      @rating_5_star = @reviews.where(rating: 5).count
+      @rating_4_star = @reviews.where(rating: 4).count
+      @rating_3_star = @reviews.where(rating: 3).count
+      @rating_2_star = @reviews.where(rating: 2).count
+      @rating_1_star = @reviews.where(rating: 1).count
+      #loop array.
+      #into model, 3 separate methods
+    end
   end
 
   # GET /parks/new
