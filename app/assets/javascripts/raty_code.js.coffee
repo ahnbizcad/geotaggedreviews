@@ -1,13 +1,13 @@
 windowReady = ->
   $('.star-rating').raty({
-    path: 'https://s3.amazonaws.com/yelpdemo/stars',
+    path: '/assets/jquery_raty',
     readOnly: true,
     score: ->
       $(this).attr('data-score')
     })
 
   $('#star-rating').raty({
-    path: 'https://s3.amazonaws.com/yelpdemo/stars',
+    path: '/assets/jquery_raty',
     scoreName: 'review[rating]'
   })
 

@@ -1,41 +1,35 @@
 class ParksController < ApplicationController
-  before_action :set_park, only: [:show, :edit, :update, :destroy]
-
-  # GET /parks
-  # GET /parks.json
+  
   def index
     @parks = Park.all
   end
 
-  # GET /parks/1
-  # GET /parks/1.json
   def show
-    @reviews = Review.where(park_id: @park.id).order("created_at DESC")
+    @reviews = Review.of_park(@park.id).by_newest
     if @reviews.blank?
-      @avg_rating = 0
+      @avg_rating = 0      
+      @rating_5_star = 0
+      @rating_4_star = 0
+      @rating_3_star = 0
+      @rating_2_star = 0
+      @rating_1_star = 0
     else
       @avg_rating = @reviews.average(:rating).round(2)
-      @rating_5_star = @reviews.where(rating: 5).count
-      @rating_4_star = @reviews.where(rating: 4).count
-      @rating_3_star = @reviews.where(rating: 3).count
-      @rating_2_star = @reviews.where(rating: 2).count
-      @rating_1_star = @reviews.where(rating: 1).count
-      #loop array.
-      #into model, 3 separate methods
+      @rating_5_star = @reviews.with_stars(5).count
+      @rating_4_star = @reviews.with_stars(4).count
+      @rating_3_star = @reviews.with_stars(3).count
+      @rating_2_star = @reviews.with_stars(2).count
+      @rating_1_star = @reviews.with_stars(1).count
     end
   end
 
-  # GET /parks/new
   def new
     @park = Park.new
   end
 
-  # GET /parks/1/edit
   def edit
   end
 
-  # POST /parks
-  # POST /parks.json
   def create
     @park = Park.new(park_params)
 
@@ -50,8 +44,6 @@ class ParksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /parks/1
-  # PATCH/PUT /parks/1.json
   def update
     respond_to do |format|
       if @park.update(park_params)
@@ -64,8 +56,6 @@ class ParksController < ApplicationController
     end
   end
 
-  # DELETE /parks/1
-  # DELETE /parks/1.json
   def destroy
     @park.destroy
     respond_to do |format|
@@ -73,6 +63,8 @@ class ParksController < ApplicationController
       format.json { head :no_content }
     end
   end  
+
+  before_action :set_park, only: [:show, :edit, :update, :destroy]
 
   private
     def set_park

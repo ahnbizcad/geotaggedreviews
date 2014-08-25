@@ -4,6 +4,11 @@
 
 .star-rating{ :data => { score: @avg_rating } }
   = @reviews.length
+
+= link_to 'Edit', edit_park_path(@park)
+\|
+= link_to 'Back', parks_path
+
 Breakdown
 .star-rating{ :data => { score: 5 } }
 .count
@@ -23,11 +28,9 @@ Breakdown
 
 = link_to "Add a review", new_park_review_path(@park)
 
-= link_to 'Edit', edit_park_path(@park)
-\|
-= link_to 'Back', parks_path
-
-= @reviews.each do |review|
+- @reviews.each do |review|
   .div{ id: "review-#{review.id}"}
     .star-rating{ :data => { score: review.rating } }
-    .comment= review.comment
+    .comment= review.comment.gsub(/\n/, '<br/>').html_safe
+    .user= "by #{review.user.email}"
+    .review-date= review.user.created_at.strftime("%Y/%m/%d")

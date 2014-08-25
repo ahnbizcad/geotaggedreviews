@@ -6,7 +6,7 @@
         - @park.errors.full_messages.each do |msg|
           %li= msg
 
-  = f.input :address
+  = f.input :address, autofocus: true, placeholder: "123 Fake Street Irvine, CA 90123"
   = f.input :image
 
   .actions
