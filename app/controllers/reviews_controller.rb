@@ -46,7 +46,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     respond_to do |format|
-      format.html { redirect_to reviews_url, notice: 'Review was successfully destroyed.' }
+      format.html { redirect_to @review.park, notice: 'Review was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -54,6 +54,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :set_park
   before_action :authenticate_user!
+  before_action :check_user, only: [:edit, :destroy]
 
   private
     def set_review
@@ -66,5 +67,11 @@ class ReviewsController < ApplicationController
 
     def set_park
       @park = Park.find(params[:park_id])
+    end
+
+    def check_user
+      unless @review.user == current_user || current_user.admin?
+        redirect_to request.referrer, notice: "Sorry, you do not have permission."
+      end
     end
 end

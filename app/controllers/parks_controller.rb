@@ -65,6 +65,8 @@ class ParksController < ApplicationController
   end  
 
   before_action :set_park, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_user, except: [:index, :show]
 
   private
     def set_park
@@ -74,4 +76,11 @@ class ParksController < ApplicationController
     def park_params
       params.require(:park).permit(:address, :image)
     end
+
+    def check_user
+      unless current_user.admin?
+        redirect_to request.referrer, notice: "Sorry, you do not have permission."
+      end
+    end
+
 end

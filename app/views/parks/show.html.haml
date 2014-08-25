@@ -34,3 +34,6 @@ Breakdown
     .comment= review.comment.gsub(/\n/, '<br/>').html_safe
     .user= "by #{review.user.email}"
     .review-date= review.user.created_at.strftime("%Y/%m/%d")
+    - if review.user == current_user
+      = link_to "Edit", edit_park_review_path(review.park, review)
+      = link_to "Delete", [review.park, review], method: :delete, :data => { confirm: 'Are you sure you want to delete this review?' }
