@@ -8,12 +8,13 @@
 
   - @parks.each do |park|
     %tr
-      %td= park.address
-      %td= image_tag park.image_url
-      %td= link_to 'Show', park
-      %td= link_to 'Edit', edit_park_path(park)
-      %td= link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this park?' }
+      = link_to park do
+        = park.address
+        = image_tag park.image_url
+      
 
 %br
-
-= link_to 'New Park', new_park_path
+-if user_signed_in? && current_user.admin?
+  = link_to 'New Park', new_park_path
+  = link_to 'Edit', edit_park_path(park)
+  = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }

@@ -1,5 +1,9 @@
 class ParksController < ApplicationController
-  
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_admin, except: [:index, :show]
+
+  before_action :set_park, only: [:show, :edit, :update, :destroy]
+
   def index
     @parks = Park.all
   end
@@ -62,11 +66,9 @@ class ParksController < ApplicationController
       format.html { redirect_to parks_url, notice: 'Park was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end  
+  end
 
-  before_action :set_park, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_user, except: [:index, :show]
+#
 
   private
     def set_park
@@ -77,9 +79,9 @@ class ParksController < ApplicationController
       params.require(:park).permit(:address, :image)
     end
 
-    def check_user
+    def check_admin
       unless current_user.admin?
-        redirect_to request.referrer, notice: "Sorry, you do not have permission."
+        redirect_to (request.referrer || root_url), notice: "Sorry, admins only."
       end
     end
 

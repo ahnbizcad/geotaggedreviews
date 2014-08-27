@@ -41,7 +41,7 @@ gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
 
-
+#gem 'searchkick'
 
 group :development do 
   gem 'better_errors'
@@ -54,7 +54,7 @@ group :development do
   gem 'quiet_assets'
   
   gem 'annotate'
-  
+
   gem 'ruby_parser'
 end
 
