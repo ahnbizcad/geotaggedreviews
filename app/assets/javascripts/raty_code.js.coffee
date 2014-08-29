@@ -1,4 +1,5 @@
-windowReady = ->
+$(document).ready ->
+
   $('.star-rating').raty({
     path: '/assets/jquery_raty',
     readOnly: true,
@@ -6,9 +7,10 @@ windowReady = ->
       $(this).attr('data-score')
     })
 
+  currentRating = $('#star-rating').data('score')
+
   $('#star-rating').raty({
     path: '/assets/jquery_raty',
     scoreName: 'review[rating]'
+    score: currentRating
   })
-
-$(document).on("page:load ready", windowReady)

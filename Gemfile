@@ -42,6 +42,7 @@ gem 'fog'
 gem 'mini_magick'
 
 #gem 'searchkick'
+#gem 'elasticsearch-rails'
 
 group :development do 
   gem 'better_errors'

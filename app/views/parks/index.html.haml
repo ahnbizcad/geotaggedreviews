@@ -1,5 +1,8 @@
 %h1 Listing parks
 
+-if user_signed_in? && current_user.admin?
+  = link_to 'New Park', new_park_path
+
 %table
   %tr
     %th
@@ -10,11 +13,8 @@
     %tr
       = link_to park do
         = park.address
-        = image_tag park.image_url
-      
+        = image_tag park.image_url 
+      -if user_signed_in? && current_user.admin?
 
-%br
--if user_signed_in? && current_user.admin?
-  = link_to 'New Park', new_park_path
-  = link_to 'Edit', edit_park_path(park)
-  = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }
+        = link_to 'Edit', edit_park_path(park)
+        = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }

@@ -7,7 +7,7 @@ class Review < ActiveRecord::Base
                                      greater_than_or_equal_to: 1,
                                      less_than_or_equal_to: 5,
                                      message: "can only be a whole number between 1 and 5, inclusive." }
-  validates :user_id, uniqueness: true # Redundant! Enforce via controller redirect.
+  validates :user_id,  uniqueness: { scope: :park_id }
 
   scope :of_park, ->(park_id) { where(park_id: park_id) }
   scope :with_stars, ->(rating) { where(rating: rating) }

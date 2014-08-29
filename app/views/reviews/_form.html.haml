@@ -6,6 +6,6 @@
         - @review.errors.full_messages.each do |msg|
           %li= msg
 
-  #star-rating{ :data => { score: "" } }
+  #star-rating{ :data => { score: @existing_review.try(:rating) } }
   = f.input :comment
   = f.submit

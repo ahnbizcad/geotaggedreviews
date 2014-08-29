@@ -5,14 +5,12 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user! # calling authenticate_user before check_user checks unlogged before user
   before_action :check_user, only: [:edit, :destroy] #why is :update not necessary? can't issue put/patch unless from edit page's form?
 
+  before_action :check_review, only: [:new, :edit]
+
   def new
     @review = Review.new
-    # Check if user already has a review for this park, and redirect to edit review path if so.
-    if user_signed_in?
-      @existing_review = Review.of_park(@park.id).by_user(current_user.id).first
-      if @existing_review
-        redirect_to edit_park_review_path(@park, @existing_review)
-      end
+    if @existing_review
+      redirect_to edit_park_review_path(@park, @existing_review)
     end
 
   end
@@ -67,11 +65,12 @@ class ReviewsController < ApplicationController
     end
 
     def review_params
-      params.require(:review).permit(:rating, :comment) #park_id and user_id?     
+      params.require(:review).permit(:rating, :comment) #park_id and user_id in params, or just set in controller (latter seems bad)?   
     end
     
     def set_park
       @park = Park.find(params[:park_id]) #get it through review object? or from params, and change park_id as explicit param?
+      #:park_id works because of nesting reviews under parks as a collection in the routes
     end
 
     def check_user # not compliant with SingleResponsibilityPrinciple. What's a better design pattern?
@@ -79,4 +78,9 @@ class ReviewsController < ApplicationController
         redirect_to request.referrer || root_url, notice: "Sorry, you can't go here."
       end
     end
+
+    def check_review      
+      @existing_review = Review.of_park(@park.id).by_user(current_user.id).first if user_signed_in?
+    end
+
 end
