@@ -1,6 +1,6 @@
 %h1 Listing parks
 
--if user_signed_in? && current_user.admin?
+-if user_signed_in?
   = link_to 'New Park', new_park_path
 
 %table
