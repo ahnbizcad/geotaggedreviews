@@ -11,9 +11,10 @@
 
   - @parks.each do |park|
     %tr
-      = link_to park do
-        = park.address
-        = image_tag park.image_url 
+      %td
+        = link_to park do
+          = park.address
+          = filepicker_image_tag park.image_url
       -if user_signed_in? && current_user.admin?
-        = link_to 'Edit', edit_park_path(park)
-        = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }
+        %td= link_to 'Edit', edit_park_path(park)
+        %td= link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }

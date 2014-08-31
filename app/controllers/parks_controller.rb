@@ -1,8 +1,8 @@
 class ParksController < ApplicationController
-  before_action :authenticate_user!, except: [:search, :index, :show]
-  before_action :check_admin, except: [:search, :index, :show, :new]
+  before_action :authenticate_user!,  except: [:search, :index, :show]
+  before_action :check_admin,         only: [:destroy]
 
-  before_action :set_park, only: [:show, :edit, :update, :destroy]
+  before_action :set_park,            only: [:show, :edit, :update, :destroy]
 
   def search
     if params[:search].present?
@@ -84,7 +84,7 @@ class ParksController < ApplicationController
     end
 
     def park_params
-      params.require(:park).permit(:address, :image)
+      params.require(:park).permit(:address, :image_url)
     end
 
     def check_admin

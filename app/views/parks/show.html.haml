@@ -1,6 +1,6 @@
 = @park.address
 
-= image_tag @park.image_url
+= filepicker_image_tag @park.image_url
 
 .star-rating{ :data => { score: @avg_rating } }
   = @reviews.length

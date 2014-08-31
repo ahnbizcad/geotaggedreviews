@@ -37,12 +37,12 @@ gem 'devise'
 
 gem 'simple_form'
 
-gem 'carrierwave'
-gem 'fog'
-gem 'mini_magick'
+gem 'filepicker-rails'
+#gem 'carrierwave' #CarrierWave
+#gem 'fog'         #CarrierWave
+#gem 'mini_magick' #CarrierWave
 
-# Requires Elasticsearch installed on machine
-gem 'searchkick'
+gem 'searchkick' # Requires Elasticsearch installed on machine
 #gem 'elasticsearch-rails'
 #gem 'elasticsearch-model'
 #gem 'elasticsearch-persistence'

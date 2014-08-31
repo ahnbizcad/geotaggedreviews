@@ -3,9 +3,9 @@ class ReviewsController < ApplicationController
   before_action :set_park
 
   before_action :authenticate_user! # calling authenticate_user before check_user checks unlogged before user
-  before_action :check_user, only: [:edit, :destroy] #why is :update not necessary? can't issue put/patch unless from edit page's form?
+  before_action :check_user, only: [:edit, :destroy] # call after :set_review
 
-  before_action :check_review, only: [:new, :edit]
+  before_action :check_if_review_exists, only: [:new, :edit] # call after :set_park
 
   def new
     @review = Review.new
@@ -20,8 +20,8 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.park_id = @park.id
-    @review.user_id = current_user.id
+    @review.park_id = @park.id              # In controller vs pasing through hidden field. Which is better?
+    @review.user_id = current_user.id       # 
 
     respond_to do |format|
       if @review.save
@@ -79,7 +79,7 @@ class ReviewsController < ApplicationController
       end
     end
 
-    def check_review      
+    def check_if_review_exists
       @existing_review = Review.of_park(@park.id).by_user(current_user.id).first if user_signed_in?
     end
 
