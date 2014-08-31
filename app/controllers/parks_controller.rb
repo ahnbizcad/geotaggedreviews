@@ -1,8 +1,16 @@
 class ParksController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_admin, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
+  before_action :check_admin, except: [:index, :show, :search]
 
   before_action :set_park, only: [:show, :edit, :update, :destroy]
+
+  def search
+    if params[:search].present?
+      @parks = Park.search(params[:search]) # .search method provided by searchkick
+    else
+      @parks = Park.all
+    end
+  end
 
   def index
     @parks = Park.all

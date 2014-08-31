@@ -41,8 +41,11 @@ gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
 
-#gem 'searchkick'
+# Requires Elasticsearch installed on machine
+gem 'searchkick'
 #gem 'elasticsearch-rails'
+#gem 'elasticsearch-model'
+#gem 'elasticsearch-persistence'
 
 group :development do 
   gem 'better_errors'
