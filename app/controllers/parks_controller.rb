@@ -1,6 +1,6 @@
 class ParksController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :search]
-  before_action :check_admin, except: [:index, :show, :search]
+  before_action :authenticate_user!, except: [:search, :index, :show]
+  before_action :check_admin, except: [:search, :index, :show, :new]
 
   before_action :set_park, only: [:show, :edit, :update, :destroy]
 
