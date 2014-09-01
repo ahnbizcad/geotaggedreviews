@@ -22,10 +22,6 @@ gem 'jquery-turbolinks', '~>2.0.2'
 gem 'turbolinks'
 gem 'sprockets', '~>2.11.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
-
-
 # bundle exec rake doc:rails generates the API under doc/api.
 group :doc do
   gem 'sdoc', '~> 0.4.0'
@@ -54,16 +50,17 @@ group :development do
   gem 'pry-rails'
   gem 'pry-byebug'
 
+  #gem 'sprockets_better_errors' #Rails 3.2.0 < x < 4.0.6 compatible
+
   gem 'awesome_print'
-  gem 'quiet_assets'
-  
+  gem 'quiet_assets'  
   gem 'annotate'
 
   gem 'ruby_parser'
 end
 
 group :production do 
-  gem 'rails_12factor', '0.0.2'
+  gem 'rails_12factor', '0.0.2'  # Configure to serve static assets in production
 end
 
 group :test do 
