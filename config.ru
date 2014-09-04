@@ -5,6 +5,5 @@ run Rails.application
 
 
 # Use Rack Mini Profiler gem
-
-require 'rack-mini-profiler'
-use Rack::MiniProfiler
+#require 'rack-mini-profiler'
+#use Rack::MiniProfiler
