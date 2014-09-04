@@ -18,6 +18,9 @@ class ParksController < ApplicationController
 
   def show
     @reviews = Review.of_park(@park.id).by_newest
+
+    @reviews_size = @reviews.size
+
     if @reviews.blank?
       @avg_rating = 0      
       @rating_5_star = 0
@@ -27,16 +30,17 @@ class ParksController < ApplicationController
       @rating_1_star = 0
     else
       @avg_rating = @reviews.average(:rating).round(2)
-      @rating_5_star = @reviews.with_stars(5).count
-      @rating_4_star = @reviews.with_stars(4).count
-      @rating_3_star = @reviews.with_stars(3).count
-      @rating_2_star = @reviews.with_stars(2).count
-      @rating_1_star = @reviews.with_stars(1).count
+      @rating_5_star = @reviews.with_stars(5).size
+      @rating_4_star = @reviews.with_stars(4).size
+      @rating_3_star = @reviews.with_stars(3).size
+      @rating_2_star = @reviews.with_stars(2).size
+      @rating_1_star = @reviews.with_stars(1).size
     end
   end
 
   def new
     @park = Park.new
+    #so slow. why?
   end
 
   def edit

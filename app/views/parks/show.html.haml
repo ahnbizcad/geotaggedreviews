@@ -1,37 +1,32 @@
-= @park.address
-
-= filepicker_image_tag @park.image_url
+%h1= @park.address
 
 .star-rating{ :data => { score: @avg_rating } }
-  = @reviews.length
+  = @reviews_size
 
-- if user_signed_in? 
+%iframe{ width: "600", height: "450", frameborder: "0", style: "border:0", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}"}
+
+= filepicker_image_tag @park.image_url, w: park_image_show_width, h: park_image_show_height, fit: park_image_show_fit
+
+- if user_signed_in?
   -if current_user.admin?
     = link_to 'Edit', edit_park_path(@park)
     \|
     = link_to 'Back', parks_path
 
-Breakdown
+%p
+  Breakdown
 .star-rating{ :data => { score: 5 } }
-.count
   = @rating_5_star
 .star-rating{ :data => { score: 4 } }
-.count
   = @rating_4_star
 .star-rating{ :data => { score: 3 } }
-.count
   = @rating_3_star
 .star-rating{ :data => { score: 2 } }
-.count
   = @rating_2_star
 .star-rating{ :data => { score: 1 } }
-.count
   = @rating_1_star
 
-%iframe{ width: "600", height: "450", frameborder: "0", style: "border:0", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}"}
-
-- if user_signed_in?
-  = link_to "Add a review", new_park_review_path(@park)
+= link_to "Add a review", new_park_review_path(@park), class: "btn btn-primary btn-lg"
 
 - @reviews.each do |review|
   .div{ id: "review-#{review.id}"}

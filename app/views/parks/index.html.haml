@@ -3,7 +3,7 @@
 -if user_signed_in?
   = link_to 'New Park', new_park_path
 
-%table
+%table.table
   %tr
     %th
     %th
@@ -13,8 +13,9 @@
     %tr
       %td
         = link_to park do
+          = filepicker_image_tag park.image_url, { w: park_image_list_width, h: park_image_list_height, fit: park_image_list_fit }, class: "img-thumbnail"
+        = link_to park do
           = park.address
-          = filepicker_image_tag park.image_url
       -if user_signed_in? && current_user.admin?
         %td= link_to 'Edit', edit_park_path(park)
         %td= link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }

@@ -1,11 +1,21 @@
-%nav
-  %ul
-    = form_tag search_parks_path, method: :get do 
-      = text_field_tag :search, params[:search]
-      = submit_tag "Search", name: nil
-    - if user_signed_in?
-      %li= link_to "#{current_user.username}", edit_user_registration_path
-      %li= link_to "Log Out", destroy_user_session_path, method: :delete 
-    - else
-      %li= link_to "Sign Up", new_user_registration_path
-      %li= link_to "Log In", new_user_session_path
+%nav.navbar.navbar-default{role: "navigation"}
+  .container-fluid
+    .navbar-header      
+      = link_to root_path, class: "navbar-brand" do
+        Park Reviews
+    
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+
+      = form_tag search_parks_path, method: :get, role: "search", class: "navbar-form navbar-left" do 
+        = text_field_tag :search, params[:search], class: "form-control"
+        = submit_tag "Search", name: nil
+
+      %ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          %li= link_to "#{current_user.username}", edit_user_registration_path
+          %li= link_to "Log Out", destroy_user_session_path, method: :delete 
+        - else
+          %li= link_to "Sign Up", new_user_registration_path
+          %li= link_to "Log In", new_user_session_path
+

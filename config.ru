@@ -2,3 +2,9 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 run Rails.application
+
+
+# Use Rack Mini Profiler gem
+
+require 'rack-mini-profiler'
+use Rack::MiniProfiler

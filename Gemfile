@@ -57,6 +57,8 @@ group :development do
   gem 'annotate'
 
   gem 'ruby_parser'
+
+  gem 'rack-mini-profiler', require: false
 end
 
 group :production do 

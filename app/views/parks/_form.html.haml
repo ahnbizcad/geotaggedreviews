@@ -1,4 +1,4 @@
-= simple_form_for @park, html: { multipart: true } do |f|
+= simple_form_for @park, html: { multipart: true, role: "form"} do |f|
   - if @park.errors.any?
     #error_explanation
       %h2= "#{pluralize(@park.errors.count, "error")} prohibited this park from being saved:"
@@ -6,8 +6,10 @@
         - @park.errors.full_messages.each do |msg|
           %li= msg
 
-  = f.input :address, autofocus: true, placeholder: "123 Fake Street Irvine, CA 90123"
-  = f.filepicker_field :image_url, button_test: "Pick Image"
+  = f.input :address, autofocus: true, placeholder: "123 Fake Street Irvine, CA 90123", class: "form-control"
+  .form-group
+    = f.label :image
+    = f.filepicker_field :image_url, button_text: "Pick Image", class: "form-control"
 
   .actions
-    = f.submit 'Save'
+    = f.button :submit

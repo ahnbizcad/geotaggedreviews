@@ -6,6 +6,10 @@
         - @review.errors.full_messages.each do |msg|
           %li= msg
 
+  = f.label :rating
   #star-rating{ :data => { score: @existing_review.try(:rating) } }
-  = f.input :comment
-  = f.submit
+
+  = f.input :comment, autofocus:true, class: "form-control"
+
+  .action
+    = f.button :submit

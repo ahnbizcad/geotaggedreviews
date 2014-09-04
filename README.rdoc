@@ -1,23 +1,21 @@
 == README
 
-Lets write readme's in json notation for fun
 
-{
-  "url": "parkreviews.herokuapp.com"
-  "Versions": {
-    "Ruby" : "2.0.0",
-    "Rails" : "4.1.1",
-    "Features": {
-      "Authentication" : "Devise",
-      "Map" : "Google Maps",
-      "Voting" :"jQuery Raty",
-      "Search" : "Searchkick",
-      "Images" : "Carrierwave",
-      "Front End" : "Bootstrap",
-      "Pre-processors" : {
-        "HTML" : "Haml",
-        "CSS" : "SCSS",
-        "JS" : "coffeescript"
-    }
-  }
-}
+URL: parkreviews.herokuapp.com
+
+Features: 
+  Authentication: Devise
+  Map: Google Maps
+  Voting: jQuery Raty
+  Search: Searchkick, ElasticSearch
+  Images: Filepicker
+  Front End: Bootstrap
+  Forms: SimpleForm-boostrap
+  Keys: Figaro
+Pre-processors:
+  HTML: Haml
+  CSS: SCSS
+  JS: coffeescript
+Versions:
+  Ruby: 2.0.0
+  Rails: 4.1.1

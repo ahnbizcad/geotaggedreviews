@@ -13,6 +13,6 @@ class Review < ActiveRecord::Base
   scope :with_stars, ->(rating) { where(rating: rating) }
   scope :by_newest, -> { order("created_at DESC") }
   scope :by_user, ->(user_id) { where(user_id: user_id) }
-
+  
 
 end
