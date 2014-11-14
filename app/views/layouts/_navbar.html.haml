@@ -1,5 +1,5 @@
-%nav.navbar.navbar-default{role: "navigation"}
-  .container-fluid
+%nav#navbar.navbar.navbar-default{role: "navigation"}
+  .container
     .navbar-header      
       = link_to root_path, class: "navbar-brand" do
         Park Reviews
@@ -9,7 +9,7 @@
 
       = form_tag search_parks_path, method: :get, role: "search", class: "navbar-form navbar-left" do 
         = text_field_tag :search, params[:search], class: "form-control"
-        = submit_tag "Search", name: nil
+        = submit_tag "Search", name: nil, class: "btn btn-default"
 
       %ul.nav.navbar-nav.navbar-right
         - if user_signed_in?

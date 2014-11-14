@@ -13,14 +13,13 @@
       = debug(params)    
 
     = render 'layouts/header'
-    = render 'layouts/navbar'
+    .affixable-wrapper
+      = render 'layouts/navbar'
 
-    - if notice
-      .notice= notice
-    - if alert
-      .alert= alert
+    /- if alert.any?
+    /  .alert= alert
 
-    #main.container-fluid
+    %main#main.container
       = yield
 
     = render 'layouts/footer'

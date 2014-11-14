@@ -10,8 +10,20 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap
- *
+ */
+@import "custom/reset";
+@import "bootstrap";
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+
+/* Blanket Styles */
+@import "custom/variables";
+@import "custom/bootstrap_override";
+@import "custom/custom";
+@import "custom/responsive";
+
+/* Plugin Styles */
+
+
+/*
  *= require_tree .
- *= require_self
  */

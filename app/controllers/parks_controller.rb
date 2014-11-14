@@ -17,25 +17,31 @@ class ParksController < ApplicationController
   end
 
   def show
-    @reviews = Review.of_park(@park.id).by_newest
+    @reviews = Review.of_park(@park.id).includes(:user).by_newest
 
     @reviews_size = @reviews.size
 
-    if @reviews.blank?
-      @avg_rating = 0      
-      @rating_5_star = 0
-      @rating_4_star = 0
-      @rating_3_star = 0
-      @rating_2_star = 0
-      @rating_1_star = 0
-    else
+    if @reviews.present?
       @avg_rating = @reviews.average(:rating).round(2)
+
       @rating_5_star = @reviews.with_stars(5).size
       @rating_4_star = @reviews.with_stars(4).size
       @rating_3_star = @reviews.with_stars(3).size
       @rating_2_star = @reviews.with_stars(2).size
       @rating_1_star = @reviews.with_stars(1).size
+    else      
+      @avg_rating = 0
+      @rating_5_star = 0
+      @rating_4_star = 0
+      @rating_3_star = 0
+      @rating_2_star = 0
+      @rating_1_star = 0
     end
+    @percent_5_star = 100*@rating_5_star/@reviews_size
+    @percent_4_star = 100*@rating_4_star/@reviews_size
+    @percent_3_star = 100*@rating_3_star/@reviews_size
+    @percent_2_star = 100*@rating_2_star/@reviews_size
+    @percent_1_star = 100*@rating_1_star/@reviews_size
   end
 
   def new

@@ -1,39 +1,75 @@
-%h1= @park.address
+.row
+  .col-xs-12
+    - if user_signed_in?
+      -if current_user.admin?
+        .col-xs-12
+          = link_to 'Edit', edit_park_path(@park)
+          \|
+          = link_to 'Back', parks_path
 
-.star-rating{ :data => { score: @avg_rating } }
-  = @reviews_size
+  .col-xs-12
+    %h2.media-heading
+      = @park.address
 
-%iframe{ width: "600", height: "450", frameborder: "0", style: "border:0", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}"}
+  .col-xs-12
+    .inline-children
+      .star-rating{ :data => { score: @avg_rating } }
+      (
+      = @reviews_size
+      )
+    
+      = link_to "Write a review", new_park_review_path(@park), class: "btn btn-primary"
+    %hr
 
-= filepicker_image_tag @park.image_url, w: park_image_show_width, h: park_image_show_height, fit: park_image_show_fit
+  .col-xs-6
+    %iframe{ frameborder: "0", style: "border:0", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}", class: "img-thumbnail wide-image" }
 
-- if user_signed_in?
-  -if current_user.admin?
-    = link_to 'Edit', edit_park_path(@park)
-    \|
-    = link_to 'Back', parks_path
+  .col-xs-6
+    .img-thumbnail
+      = filepicker_image_tag @park.image_url
 
-%p
-  Breakdown
-.star-rating{ :data => { score: 5 } }
-  = @rating_5_star
-.star-rating{ :data => { score: 4 } }
-  = @rating_4_star
-.star-rating{ :data => { score: 3 } }
-  = @rating_3_star
-.star-rating{ :data => { score: 2 } }
-  = @rating_2_star
-.star-rating{ :data => { score: 1 } }
-  = @rating_1_star
+  .col-xs-12    
+    %hr
 
-= link_to "Add a review", new_park_review_path(@park), class: "btn btn-primary btn-lg"
+  .col-xs-12
+    %h2.media-heading Reviews
 
-- @reviews.each do |review|
-  .div{ id: "review-#{review.id}"}
-    .star-rating{ :data => { score: review.rating } }
-    .comment= review.comment.gsub(/\n/, '<br/>').html_safe
-    .user= "by #{review.user.email}"
-    .review-date= review.user.created_at.strftime("%Y/%m/%d")
-    - if review.user == current_user || ( current_user.admin? if user_signed_in? )
-      = link_to "Edit", edit_park_review_path(review.park, review)
-      = link_to "Delete", [review.park, review], method: :delete, :data => { confirm: 'Delete review?' }
+    - (1..5).reverse_each do |val|
+      .row
+        .col-xs-2
+          = "#{val} #{val > 1 ? 'stars' : 'star'}:"
+        .col-xs-3
+          .progress
+            .progress-bar.progress-bar-warning{ role: "progressbar", "aria-valuemin"=> "0", "aria-valuemax"=> "100", "aria-valuenow"=> "#{val*100/5}", style: "width: #{val*100/5}%;" }              
+        .col-xs-1
+          (
+          = instance_variable_get "@rating_#{val}_star"
+          )
+
+    %br
+
+    = link_to "Write a review", new_park_review_path(@park), class: "btn btn-primary btn-lg"
+
+    %hr
+
+  -if @reviews.any?
+    .col-xs-12
+      %ul.no-bullet
+        - @reviews.each do |review|
+          %li.review{ id: "review-#{review.id}"}
+            .row              
+              .col-xs-3
+                .star-rating{ :data => { score: review.rating } }
+                .manage
+                  - if review.user == current_user || ( current_user.admin? if user_signed_in? )
+                    = link_to "Edit", edit_park_review_path(review.park, review)
+                    = link_to "Delete", [review.park, review], method: :delete, :data => { confirm: 'Delete review?' }
+                .review-date
+                  = review.user.created_at.strftime("%Y/%m/%d")
+                .user 
+                  = review.user.username
+              .col-xs-9
+                .comment 
+                  = review.comment.gsub(/\n/, '<br/>').html_safe
+            %hr
+

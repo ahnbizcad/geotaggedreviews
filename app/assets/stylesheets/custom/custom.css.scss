@@ -1,9 +1,43 @@
+ul.no-bullet {
+  list-style-type: none;
+  padding: 0;
+}
+
+.wide-image {
+  width: 100%;
+  height: auto;
+}
+
+
+/**/
+
+
+#navbar {
+  background-color: #B33;
+  background-color: linear-gradient(rgb(196, 18, 0), rgb(175, 6, 6));
+
+}
+
 #main {
   min-height: 1000px;
 }
 
 footer {
-  background-color: #555
+  background-color: whitesmoke;
+
+}
 
 
+.inline-children {
+
+  >* {
+    display: inline-block;
+    vertical-align: text-bottom;
+  }
+}
+
+.review-header {
+  > * {
+    display: inline-block;
+  }
 }

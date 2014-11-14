@@ -1,21 +1,23 @@
-%h1 Listing parks
+.row
+  .col-xs-12
+    %h2.media-heading Parks
 
--if user_signed_in?
-  = link_to 'New Park', new_park_path
+    - if user_signed_in?
+      = link_to 'New Park', new_park_path
+      %br
 
-%table.table
-  %tr
-    %th
-    %th
-    %th
+  .col-xs-12
+    %ul.no-bullet
+      %hr
+      - @parks.each do |park|
+        %li
+          = link_to park do
+            %h4.media-heading= park.address
 
-  - @parks.each do |park|
-    %tr
-      %td
-        = link_to park do
-          = filepicker_image_tag park.image_url, { w: park_image_list_width, h: park_image_list_height, fit: park_image_list_fit }, class: "img-thumbnail"
-        = link_to park do
-          = park.address
-      -if user_signed_in? && current_user.admin?
-        %td= link_to 'Edit', edit_park_path(park)
-        %td= link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }
+          = link_to park, class: "media-left" do
+            = filepicker_image_tag park.image_url, { w: park_image_list_width, h: park_image_list_height, fit: park_image_list_fit }, class: "img-thumbnail"          
+
+        - if user_signed_in? && current_user.admin?
+          = link_to 'Edit', edit_park_path(park)
+          = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }
+        %hr

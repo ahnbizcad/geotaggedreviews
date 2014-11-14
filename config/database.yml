@@ -25,6 +25,6 @@ test:
 production:
   <<: *default
   database: geotaggedreviews_production
-  host: jeehooahn.herokuapp.com #jeehooahn.com is set as alias to the herokuapp url
+  host: geotaggedreviews-2424.herokuapp.com
   username: postgres
   password: 
