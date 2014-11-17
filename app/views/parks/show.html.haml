@@ -2,10 +2,9 @@
   .col-xs-12
     - if user_signed_in?
       -if current_user.admin?
-        .col-xs-12
-          = link_to 'Edit', edit_park_path(@park)
-          \|
-          = link_to 'Back', parks_path
+        = link_to 'Edit', edit_park_path(@park)
+        \|
+        = link_to 'Back', parks_path
 
   .col-xs-12
     %h2.media-heading
@@ -25,25 +24,26 @@
     %iframe{ frameborder: "0", style: "border:0", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}", class: "img-thumbnail wide-image" }
 
   .col-xs-6
-    .img-thumbnail
-      = filepicker_image_tag @park.image_url
+    -if @park.image_url?
+      .img-thumbnail
+        = filepicker_image_tag @park.image_url, { fit: 'clip' }, class: 'img-responsive'
 
-  .col-xs-12    
+  .col-xs-12
     %hr
 
   .col-xs-12
     %h2.media-heading Reviews
 
-    - (1..5).reverse_each do |val|
+    - 5.downto(1).each_with_index do |val, index|
       .row
         .col-xs-2
           = "#{val} #{val > 1 ? 'stars' : 'star'}:"
         .col-xs-3
           .progress
-            .progress-bar.progress-bar-warning{ role: "progressbar", "aria-valuemin"=> "0", "aria-valuemax"=> "100", "aria-valuenow"=> "#{val*100/5}", style: "width: #{val*100/5}%;" }              
+            .progress-bar.progress-bar-warning{ role: "progressbar", "aria-valuemin"=> "0", "aria-valuemax"=> "100", "aria-valuenow"=> "#{@percentages[index]}", style: "width: #{@percentages[index]}%;" }
         .col-xs-1
           (
-          = instance_variable_get "@rating_#{val}_star"
+          = @ratings_count[index]
           )
 
     %br

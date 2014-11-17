@@ -5,6 +5,6 @@ class Park < ActiveRecord::Base
   has_many :reviews
 
   validates :address, presence: true
-  validates :address, format: { with: /\d+.+/}
+  #validates :address, format: { with: /\d+.+/}
 
 end
