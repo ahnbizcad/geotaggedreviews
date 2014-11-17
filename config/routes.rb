@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end    
   end
 
+  resources :users, only: [:index, :edit, :update, :destroy]
+
   devise_for :users, :skip => [:sessions, :registration]
   devise_for :user, :path => '', :path_names => { :sign_in => "login", 
                                                   :sign_out => "logout", 

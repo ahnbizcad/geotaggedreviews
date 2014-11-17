@@ -1,0 +1,12 @@
+#.row
+#  .col-xs-12
+#    %table
+#      %thead  
+#        %tr
+#          - User.attributes do |attr_name|
+#            %th= attr_name
+#      %tbody
+#        - @users.each do |user|
+#          %tr
+#            - user.attributes.each_pair do |attr, val|
+#              %td= val

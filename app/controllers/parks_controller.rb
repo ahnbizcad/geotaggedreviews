@@ -13,32 +13,18 @@ class ParksController < ApplicationController
   end
 
   def index
-    @parks = Park.all
+    @parks = Park.all.includes(:reviews)
+    #paginate and limit parks so that it doesn't include all reviews.
   end
 
   def show
-    @reviews = Review.of_park(@park.id).includes(:user).by_newest
+    @reviews = @park.the_reviews
 
-    @reviews_size = @reviews.size
-
-    if @reviews.present?
-      @avg_rating = @reviews.average(:rating).round(2)
-
-      # Refactor into model instead.
-      # Use hashes instead.
-      @ratings_count = []
-      @percentages = []
-      5.downto(1).each do |val|
-        @ratings_count << @reviews.with_stars(val).size
-        @percentages << (100 * @reviews.with_stars(val).size) / (@reviews_size)
-      end
-    else      
-      @avg_rating = 0
-
-      @ratings_count = Array.new(5, 0)
-
-      @percentages = Array.new(5, 0)
-    end
+    @average_rating = @park.average_rating
+    @reviews_count = @park.reviews_count
+    # Use hashes instead.
+    @ratings_histogram = @park.ratings_histogram
+    @percentages = @park.percentages
   end
 
   def new
@@ -92,12 +78,6 @@ class ParksController < ApplicationController
 
     def park_params
       params.require(:park).permit(:address, :image_url)
-    end
-
-    def check_admin
-      unless current_user.admin?
-        redirect_to (request.referrer || root_url), notice: "Sorry, admins only."
-      end
     end
 
 end

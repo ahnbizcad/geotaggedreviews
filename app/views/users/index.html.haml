@@ -1,0 +1,17 @@
+.row
+  .col-xs-12
+    %table
+      %thead  
+        %tr
+          %td ADMIN
+          - User.column_names.each do |attr_name|
+            %th= attr_name
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td
+              = simple_form_for(user, method: :patch) do |f|
+                = f.input :admin, as: :boolean, label: false
+                = f.button :submit
+            - user.attributes.each_pair do |attr, val|
+              %td= val

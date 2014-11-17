@@ -12,25 +12,26 @@
 
   .col-xs-12
     .inline-children
-      .star-rating{ :data => { score: @avg_rating } }
+      .star-rating{ :data => { score: @average_rating } }
       (
-      = @reviews_size
+      = @reviews_count
       )
     
       = link_to "Write a review", new_park_review_path(@park), class: "btn btn-primary"
     %hr
 
   .col-xs-6
-    %iframe{ frameborder: "0", style: "border:0", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}", class: "img-thumbnail wide-image" }
+    .google-maps
+      %iframe{ frameborder: "0", border: "0", width: "600", height: "450", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{@park.address.parameterize}"}
 
   .col-xs-6
     -if @park.image_url?
       .img-thumbnail
-        = filepicker_image_tag @park.image_url, { fit: 'clip' }, class: 'img-responsive'
+        = filepicker_image_tag @park.image_url, { fit: park_image_fit }, class: 'img-responsive'
 
   .col-xs-12
     %hr
-
+    
   .col-xs-12
     %h2.media-heading Reviews
 
@@ -43,8 +44,8 @@
             .progress-bar.progress-bar-warning{ role: "progressbar", "aria-valuemin"=> "0", "aria-valuemax"=> "100", "aria-valuenow"=> "#{@percentages[index]}", style: "width: #{@percentages[index]}%;" }
         .col-xs-1
           (
-          = @ratings_count[index]
-          )
+          = @ratings_histogram[index]
+          ) 
 
     %br
 

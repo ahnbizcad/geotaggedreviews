@@ -11,13 +11,26 @@
       %hr
       - @parks.each do |park|
         %li
-          = link_to park do
-            %h4.media-heading= park.address
+          .row
+            .col-xs-4
+              = link_to park do
+                %h4.media-heading= park.name
+                %h4.media-heading= park.address
 
-          = link_to park, class: "media-left" do
-            = filepicker_image_tag park.image_url, { w: park_image_list_width, h: park_image_list_height, fit: park_image_list_fit }, class: "img-thumbnail"          
+              .inline-children
+                .star-rating{ :data => { score: park.average_rating } }
+                (
+                = park.reviews_count
+                )
 
-        - if user_signed_in? && current_user.admin?
-          = link_to 'Edit', edit_park_path(park)
-          = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }
+              - if user_signed_in? && current_user.admin?
+                = link_to 'Edit', edit_park_path(park)
+                = link_to 'Destroy', park, :method => :delete, :data => { :confirm => 'Delete park?' }
+            .col-xs-4
+              .google-maps
+                %iframe{ frameborder: "0", border: "0", width: "600", height: "450", src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyA-RieSV1uEUXLcnB4tren6Q1Pkm90dzKU&q=#{park.address.parameterize}"}
+            .col-xs-4
+              = link_to park, class: "media-left" do
+                = filepicker_image_tag park.image_url, { w: park_image_width, h: park_image_height, fit: park_image_fit }, class: "img-thumbnail" 
+            
         %hr

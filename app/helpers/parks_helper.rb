@@ -1,25 +1,15 @@
 module ParksHelper
-  def park_image_list_width 
-    250
+  
+  def park_image_width
+    300
   end
   
-  def park_image_list_height
-    150
+  def park_image_height
+    park_image_width * (3 / 4)
   end
 
-  def park_image_list_fit
+  def park_image_fit
     'clip'
   end
 
-  def park_image_show_width 
-    500
-  end
-  
-  def park_image_show_height
-    400
-  end
-
-  def park_image_show_fit
-    'clip'
-  end
 end
